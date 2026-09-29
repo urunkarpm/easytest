@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PageAudit Test Fixture Page</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; line-height: 1.5; }
+    header, section, footer { margin-bottom: 30px; }
+    .box { border: 1px solid #ccc; padding: 15px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <!-- Missing H1 intentional bug; starts with H2 -->
+  <header>
+    <h2>Welcome to Fixture Page (H2 instead of H1)</h2>
+    <h4>Skipped Level Heading (H4 directly under H2)</h4>
+  </header>
+
+  <section id="section-images">
+    <h2>Images Testing Section</h2>
+    <div class="box">
+      <!-- 1. Valid image with alt -->
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='50'><rect width='100' height='50' fill='%2310B981'/><text x='10' y='30' fill='white'>Valid Alt</text></svg>" alt="A green test rectangle" width="100" height="50" />
+
+      <!-- 2. Missing alt attribute bug -->
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='50'><rect width='100' height='50' fill='%23EF4444'/><text x='10' y='30' fill='white'>No Alt</text></svg>" width="100" height="50" />
+
+      <!-- 3. Decorative image empty alt -->
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='50'><rect width='100' height='50' fill='%23F59E0B'/><text x='10' y='30' fill='white'>Decorative</text></svg>" alt="" width="100" height="50" />
+    </div>
+  </section>
+
+  <section id="section-links">
+    <h2>Links Testing Section</h2>
+    <div class="box">
+      <ul>
+        <!-- Good anchor link -->
+        <li><a href="#section-images">Valid Internal Anchor Link (#section-images)</a></li>
+        <!-- Broken anchor link -->
+        <li><a href="#non-existent-section">Broken Internal Anchor Link (#non-existent-section)</a></li>
+        <!-- Good public HTTP link -->
+        <li><a href="https://httpbin.org/status/200">Valid 200 HTTP Link</a></li>
+        <!-- Broken HTTP link -->
+        <li><a href="https://httpbin.org/status/404">Broken 404 HTTP Link</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <p>PageAudit Test Fixture Footer</p>
+  </footer>
+</body>
+</html>
